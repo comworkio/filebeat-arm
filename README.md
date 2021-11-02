@@ -23,3 +23,14 @@ You'll see more details [here](https://jschumacher.info/2021/03/up-to-date-fileb
 ## Builds
 
 Builded deb package for armhf are available [here](./filebeat_armhf)
+
+## Getting started
+
+Run those command from a x86 host based on Ubuntu or Debian:
+
+```shell
+$ git clone "https://gitlab.comwork.io/oss/elasticstack/filebeat-arm"
+$ ./filebeat_armhf.sh
+```
+
+Then you'll just have to pick the armhf package generated in `./filebeat_armhf` subdirectory.
