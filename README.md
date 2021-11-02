@@ -14,6 +14,12 @@ Based on this [gist](https://gist.github.com/lazywebm/63ce309cffe6483bb5fc2d8a9e
 
 You'll see more details [here](https://jschumacher.info/2021/03/up-to-date-filebeat-for-32bit-raspbian-armhf/)
 
+## Git repositories
+
+* Main repo: https://gitlab.comwork.io/oss/filebeat-arm
+* Github mirror: https://github.com/idrissneumann/filebeat-arm.git
+* Gitlab mirror: https://gitlab.com/ineumann/filebeat-arm.git
+
 ## Builds
 
 Builded deb package for armhf are available [here](./filebeat_armhf)
