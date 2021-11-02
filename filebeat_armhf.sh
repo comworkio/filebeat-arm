@@ -20,7 +20,7 @@ Non-interactive script for repackaging latest filebeat arm64 .deb files for 32 b
 Requires core-utils with (some) POSIX compliance, dpkg, md5sum, wget, curl, git. Tested with Ubuntu 20.10 and Debian 10.
 Script will also download and extract the latest golang release under INSTALL_DIR 
 and use it's binary for compiling, rather than using any potentially existing global go installation.
-Everything is placed in ~/Downloads/filebeat_armhf.
+Everything is placed in ./filebeat_armhf.
 This *should* continue to function as long as download links for golang and filebeat don't change.
 
 Inspired by:
@@ -91,7 +91,7 @@ parse_params() {
 parse_params "$@"
 setup_colors
 
-INSTALL_DIR=$HOME/Downloads/filebeat_armhf
+INSTALL_DIR=./filebeat_armhf
 GO_BINARY=$INSTALL_DIR/go/bin/go
 
 if [ ! -d "$INSTALL_DIR" ]; then

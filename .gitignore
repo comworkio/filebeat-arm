@@ -70,4 +70,5 @@ hs_err_pid*.log
 *.code-workspace
 
 *.pem
+filebeat_armhf/go/
 
