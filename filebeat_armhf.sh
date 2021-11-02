@@ -91,7 +91,8 @@ parse_params() {
 parse_params "$@"
 setup_colors
 
-INSTALL_DIR=./filebeat_armhf
+BASE_DIR=./filebeat_armhf
+INSTALL_DIR="$(realpath "${BASE_DIR}")"
 GO_BINARY=$INSTALL_DIR/go/bin/go
 
 if [ ! -d "$INSTALL_DIR" ]; then
@@ -132,8 +133,10 @@ build_armhf_binary() {
   msg ""
   msg "${GREEN} ### Cloning from github.com/elastic/beats.git ${NOFORMAT}"
   msg ""
-  mkdir -p "$INSTALL_DIR"/go/src/github.com/elastic ; cd "$INSTALL_DIR"/go/src/github.com/elastic
-  git clone https://github.com/elastic/beats.git ; cd beats/filebeat
+  mkdir -p "${INSTALL_DIR}/go/src/github.com/elastic"
+  cd "${INSTALL_DIR}/go/src/github.com/elastic"
+  [[ -d beats ]] || git clone https://github.com/elastic/beats.git
+  cd beats/filebeat
   git config advice.detachedHead false
   git checkout v"$BEATS_LATEST"
   msg ""
