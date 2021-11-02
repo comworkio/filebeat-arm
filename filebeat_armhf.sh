@@ -45,8 +45,8 @@ cleanup() {
   msg ""
   msg "${GREEN} ### Cleaning up files ${NOFORMAT}"
   msg ""
-  rm -rf "$INSTALL_DIR"/armhf
-  rm -rf "$INSTALL_DIR"/go
+  rm -rf "${INSTALL_DIR}/armhf"
+  rm -rf "${INSTALL_DIR}/go"
 }
 
 setup_colors() {
@@ -109,12 +109,12 @@ setup_local_go() {
   msg ""
   msg "${GREEN} ### Downloading latest Go for amd64: ${GO_LATEST} ${NOFORMAT}"
   msg ""
-  wget --no-clobber --continue "$GO_DL_SITE""$GO_DL_PATH_URL" -P "$INSTALL_DIR"
+  wget --no-clobber --continue "${GO_DL_SITE}""${GO_DL_PATH_URL}" -P "${INSTALL_DIR}"
   GO_LATEST_FILE="$(find "$INSTALL_DIR" -name "go$GO_LATEST*" -type f -printf "%f\n" | awk 'FNR <= 1')"
   msg ""
   msg "${GREEN} ### file downloaded: ${GO_LATEST_FILE} ${NOFORMAT}"
   msg ""
-  tar -xzf "$INSTALL_DIR"/"$GO_LATEST_FILE" -C "$INSTALL_DIR"
+  tar -xzf "${INSTALL_DIR}/${GO_LATEST_FILE}" -C "$INSTALL_DIR"
   $GO_BINARY version
 }
 
@@ -138,31 +138,31 @@ build_armhf_binary() {
   [[ -d beats ]] || git clone https://github.com/elastic/beats.git
   cd beats/filebeat
   git config advice.detachedHead false
-  git checkout v"$BEATS_LATEST"
+  git checkout "v${BEATS_LATEST}"
   msg ""
   msg "${GREEN} ### Building 32 bit arm binary for filebeat ... ${NOFORMAT}"
   GOARCH=arm $GO_BINARY build
   msg ""
   msg "${GREEN} ### Binary ready: ${NOFORMAT}"
   FILEBEAT_BINARY="$(file filebeat)"
-  msg "$FILEBEAT_BINARY"
+  msg "${FILEBEAT_BINARY}"
   msg ""
 }
 
 repackage_beats_deb() {
   msg ""
-  msg "${GREEN} ### Repackaging $BEATS_LATEST_ARM64 file"
+  msg "${GREEN} ### Repackaging ${BEATS_LATEST_ARM64} file"
   msg " ### Removing original binary for filebeat-god, replacing binary for filebeat"
   msg " ### Updating control and md5sums files ${NOFORMAT}"
-  mkdir "$INSTALL_DIR"/armhf
-  dpkg-deb -x "$INSTALL_DIR"/"$BEATS_LATEST_ARM64" "$INSTALL_DIR"/armhf/
-  dpkg-deb -e "$INSTALL_DIR"/"$BEATS_LATEST_ARM64" "$INSTALL_DIR"/armhf/DEBIAN
-  rm "$INSTALL_DIR"/armhf/usr/share/filebeat/bin/filebeat
-  rm "$INSTALL_DIR"/armhf/usr/share/filebeat/bin/filebeat-god
-  cp "$INSTALL_DIR"/go/src/github.com/elastic/beats/filebeat/filebeat "$INSTALL_DIR"/armhf/usr/share/filebeat/bin/
-  FILEBEAT_MD5="$(md5sum "$INSTALL_DIR"/armhf/usr/share/filebeat/bin/filebeat | awk '{print $1}')"
-  sed -i 's/arm64/armhf/g' "$INSTALL_DIR"/armhf/DEBIAN/control
-  sed -i '/filebeat-god/d' "$INSTALL_DIR"/armhf/DEBIAN/md5sums
+  mkdir "${INSTALL_DIR}/armhf"
+  dpkg-deb -x "${INSTALL_DIR}/${BEATS_LATEST_ARM64}" "${INSTALL_DIR}/armhf/"
+  dpkg-deb -e "${INSTALL_DIR}/${BEATS_LATEST_ARM64}" "${INSTALL_DIR}/armhf/DEBIAN"
+  rm "${INSTALL_DIR}/armhf/usr/share/filebeat/bin/filebeat"
+  rm "${INSTALL_DIR}/armhf/usr/share/filebeat/bin/filebeat-god"
+  cp "${INSTALL_DIR}/go/src/github.com/elastic/beats/filebeat/filebeat" "${INSTALL_DIR}/armhf/usr/share/filebeat/bin/"
+  FILEBEAT_MD5="$(md5sum "${INSTALL_DIR}/armhf/usr/share/filebeat/bin/filebeat" | awk '{print $1}')"
+  sed -i 's/arm64/armhf/g' "${INSTALL_DIR}/armhf/DEBIAN/control"
+  sed -i '/filebeat-god/d' "${INSTALL_DIR}/armhf/DEBIAN/md5sums"
   sed -i "s/.*usr\/share\/filebeat\/bin\/filebeat.*/$FILEBEAT_MD5  usr\/share\/filebeat\/bin\/filebeat/g" "$INSTALL_DIR"/armhf/DEBIAN/md5sums
   msg ""
   msg "${GREEN} ### Building new armhf deb file ${NOFORMAT}"
