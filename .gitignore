@@ -71,4 +71,5 @@ hs_err_pid*.log
 
 *.pem
 filebeat_armhf/go/
+filebeat_armhf/filebeat-7.15.1-arm64.deb
 
