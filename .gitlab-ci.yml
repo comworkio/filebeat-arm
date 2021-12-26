@@ -8,4 +8,4 @@ mirror:
   only:
     - /^(main.*)$/
   tags:
-    - filebeat-arm
+    - mirror
