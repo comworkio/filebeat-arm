@@ -17,10 +17,8 @@ You'll see more details [here](https://jschumacher.info/2021/03/up-to-date-fileb
 ## Git repositories
 
 * Main repo: https://gitlab.comwork.io/oss/filebeat-arm
-* Github mirror: https://github.com/idrissneumann/filebeat-arm.git
+* Github mirror: https://github.com/comworkio/filebeat-arm.git
 * Gitlab mirror: https://gitlab.com/ineumann/filebeat-arm.git
-* Bitbucket mirror: https://bitbucket.org/idrissneumann/filebeat-arm.git
-* Froggit mirror: https://lab.frogg.it/ineumann/filebeat-arm.git
 
 ## Builds
 
